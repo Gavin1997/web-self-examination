@@ -47,6 +47,15 @@ module.exports = {
         ],
       },
       {
+        title: 'webGL',
+        collapsable: true,
+        children: [
+          '/webgl/1-什么是webgl',
+          '/webgl/2-初识webgl和着色器',
+          '/webgl/3-坐标系与鼠标交互',
+        ],
+      },
+      {
         title: 'DOM',
         collapsable: false,
         children: [

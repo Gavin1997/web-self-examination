@@ -489,9 +489,133 @@ console.log(brr.lenght); ///4
 
 ## null 和 undefined 的区别
 
+null： `Null` 类型，代表“空值”，代表一个空对象指针，使用 `typeof` 运算得到 `“object”`，所以你可以认为它是一个特殊的对象值。
+
+undefined： `Undefined` 类型，当一个声明了一个变量未初始化时，得到的就是 undefined。
+
+`null` 是 `javascript` 的关键字，可以认为是对象类型，它是一个空对象指针，和其它语言一样都是代表“空值”，不过 `undefined` 却是 `javascript` 才有的。`undefined` 是在 `ECMAScript` 第三版引入的，为了区分空指针对象和未初始化的变量，它是一个预定义的全局变量。没有返回值的函数返回为 undefined，没有实参的形参也是 `undefined`。
+
+javaScript 权威指南： `null` 和 `undefined` 都表示“值的空缺”，你可以认为 `undefined` 是表示系统级的、出乎意料的或类似错误的值的空缺，而 `null` 是表示程序级的、正常的或在意料之中的值的空缺。
+
+哈哈哈！！是不是感觉不是在说人话。如果和我一样不是很能听懂，请看下面。
+
+javaScript 高级程序设计： 在使用 var 声明变量但未对其加以初始化时，这个变量的值就是 `undefined`。 `null` 值则是表示空对象指针。
+
+最后，我的理解就是： `undefined` 是访问一个未初始化的变量时返回的值，而 `null` 是访问一个尚未存在的对象时所返回的值。因此，可以把 `undefined` 看作是空的变量，而 `null` 看作是空的对象。
+
+在定义一个想保存对象的变量时，就可以让该变量先保存 null 值，这样既能体现 null 是一个空指针对象，也能更好的区分 null 和 undefined。
+`undefine` 是未定义的对象
+`null` 是定义的对象 但是没有实例 ....
+可以理解为 `null` 是 `defined` 了的 obj
+只是没有赋值或 new
+
 ---
 
 ## 三种判断 JavaScript 数据类型的方式
+
+### typeOf
+
+`typeof` 是一个操作符，其右侧跟一个一元表达式，并返回这个表达式的数据类型。返回的结果用该类型的字符串(全小写字母)形式表示，包括以下 7 种：`number、boolean、symbol、string、object、undefined、function` 等。
+
+```js
+typeof ""; // string 有效
+typeof 1; // number 有效
+typeof Symbol(); // symbol 有效
+typeof true; //boolean 有效
+typeof undefined; //undefined 有效
+typeof null; //object 无效
+typeof []; //object 无效
+typeof new Function(); // function 有效
+typeof new Date(); //object 无效
+typeof new RegExp(); //object 无效
+```
+
+有些时候，typeof 操作符会返回一些令人迷惑但技术上却正确的值：
+
+- 对于基本类型，除 `null` 以外，均可以返回正确的结果。
+- 对于引用类型，除 `function` 以外，一律返回 `object` 类型。
+- 对于 `null` ，返回 `object` 类型。
+- 对于 `function` 返回 `function` 类型。
+- 其中，`null` 有属于自己的数据类型 `Null` ， 引用类型中的 数组、日期、正则 也都有属于自己的具体类型，而 typeof 对于这些类型的处理，只返回了处于其原型链最顶端的 `Object` 类型，没有错，但不是我们想要的结果。
+
+### instanceof
+
+`instanceof` 是用来判断 A 是否为 B 的实例，表达式为：A instanceof B，如果 A 是 B 的实例，则返回 true,否则返回 false。 在这里需要特别注意的是：instanceof 检测的是原型，我们用一段伪代码来模拟其内部执行过程：
+
+```js
+instanceof (A,B) = {
+    var L = A.__proto__;
+    var R = B.prototype;
+    if(L === R) {
+        // A的内部属性 __proto__ 指向 B 的原型对象
+        return true;
+    }
+    return false;
+}
+```
+
+从上述过程可以看出，当 A 的 ** `__proto__` ** 指向 B 的 prototype 时，就认为 A 就是 B 的实例，我们再来看几个例子：
+
+```js
+[] instanceof Array; // true
+{} instanceof Object;// true
+new Date() instanceof Date;// true
+
+function Person(){};
+new Person() instanceof Person;
+
+[] instanceof Object; // true
+new Date() instanceof Object;// true
+new Person instanceof Object;// true
+```
+
+我们发现，虽然 instanceof 能够判断出 [ ] 是 Array 的实例，但它认为 [ ] 也是 Object 的实例，为什么呢？
+
+我们来分析一下 [ ]、Array、Object 三者之间的关系：
+
+从 instanceof 能够判断出 [ ]. `__proto__` 指向 Array.prototype，而 Array.prototype.**`_proto_`** 又指向了 Object.prototype，最终 Object.prototype.**`__proto__`** 指向了 null，标志着原型链的结束。因此，[]、Array、Object 就在内部形成了一条原型链：
+![avatar](/varandTypes/proto_instaceof.jpg)
+
+从原型链可以看出，[] 的 `_porto_`直接指向 `Array.prototype`，间接指向 `Object.prototype`，所以按照 `instanceof` 的判断规则，[] 就是 Object 的实例。依次类推，类似的 `new Date()`、`new Person()` 也会形成一条对应的原型链 。因此，`instanceof` **只能用来判断两个对象是否属于实例关系， 而不能判断一个对象实例具体属于哪种类型。**
+
+`instanceof` 操作符的问题在于，它假定只有一个全局执行环境。如果网页中包含多个框架，那实际上就存在两个以上不同的全局执行环境，从而存在两个以上不同版本的构造函数。如果你从一个框架向另一个框架传入一个数组，那么传入的数组与在第二个框架中原生创建的数组分别具有各自不同的构造函数。
+
+```js
+var iframe = document.createElement("iframe");
+document.body.appendChild(iframe);
+xArray = window.frames[0].Array;
+var arr = new xArray(1, 2, 3); // [1,2,3]
+arr instanceof Array; // false
+```
+
+针对数组的这个问题，ES5 提供了 `Array.isArray()` 方法 。该方法用以确认某个对象本身是否为 Array 类型，而不区分该对象在哪个环境中创建。
+
+```js
+if (Array.isArray(value)) {
+  //对数组执行某些操作
+}
+```
+
+`Array.isArray()` 本质上检测的是对象的 [[Class]] 值，[[Class]] 是对象的一个内部属性，里面包含了对象的类型信息，其格式为 [object Xxx] ，Xxx 就是对应的具体类型 。对于数组而言，[[Class]] 的值就是 [object Array] 。
+
+### constructor
+
+- 当一个函数 F 被定义时，JS 引擎会为 F 添加 `prototype` 原型，然后再在 `prototype` 上添加一个 `constructor` 属性，并让其指向 F 的引用。如下所示：
+  ![avatar](/varandTypes/constructor1.png)
+- 当执行 var f = new F() 时，F 被当成了构造函数，f 是 F 的实例对象，此时 F 原型上的 constructor 传递到了 f 上，因此 `f.constructor == F`
+  ![avatar](/varandTypes/constructor2.png)
+- 可以看出，F 利用原型对象上的 c`onstructor` 引用了自身，当 F 作为构造函数来创建对象时，原型上的 `constructor` 就被遗传到了新创建的对象上， 从原型链角度讲，构造函数 F 就是新对象的类型。这样做的意义是，让新对象在诞生以后，就具有可追溯的数据类型。
+  同样，JavaScript 中的内置对象在内部构建时也是这样做的：
+  ![avatar](/varandTypes/constructor3.png)
+- 细节问题
+  :::tip
+  1. `null` 和 `undefined` 是无效的对象，因此是不会有 `constructor` 存在的，这两种类型的数据需要通过其他方式来判断。
+  2. 函数的 `constructor` 是不稳定的，这个主要体现在自定义对象上，当开发者重写 `prototype` 后，原有的 `constructor` 引用会丢失，`constructor` 会默认为 Object
+     :::
+     ![avatar](/varandTypes/constructor4.png)
+- 为什么变成了 Object？
+  因为 `prototype` 被重新赋值的是一个 { }， { } 是 `new Object()` 的字面量，因此 `new`Object() 会将 `Object` 原型上的 `constructo`r 传递给 { }，也就是 `Object` 本身。
+  因此，为了规范开发，在重写对象原型时一般都需要重新给 `constructor` 赋值，以保证对象实例的类型不被篡改。
 
 ---
 

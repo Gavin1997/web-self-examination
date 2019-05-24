@@ -16,12 +16,12 @@ module.exports = {
         text: 'JavaScript',
         link: '/JavaScript/',
       }, {
-        text: 'BOM',
-        link: '/BOM/',
+        text: 'HTML',
+        link: '/HTML/',
       },
       {
-        text: 'DOM',
-        link: '/DOM/',
+        text: 'CSS',
+        link: '/CSS/',
       },
 
       {
@@ -35,15 +35,64 @@ module.exports = {
         collapsable: true,
         children: [
           '/JavaScript/VarandTypes/',
-
-
+          '/JavaScript/ProtoAndChain/',
+          '/JavaScript/ScoprAndClosure/',
+          '/JavaScript/ExecutionMechanism/',
+          '/JavaScript/GrammarAndApi/'
         ],
       },
       {
-        title: 'BOM',
-        collapsable: false,
+        title: 'HTML',
+        collapsable: true,
         children: [
-          // '/BOM/',
+          '/HTML/',
+        ],
+      },
+      {
+        title: 'CSS',
+        collapsable: true,
+        children: [
+          '/CSS/',
+        ],
+      },
+      {
+        title: '计算机基础',
+        collapsable: true,
+        children: [
+          '/CoumpterBasic/FundamentalsOfCompiling/',
+          '/CoumpterBasic/NetworkingProtocol/',
+          '/CoumpterBasic/DesignMode/'
+        ],
+      },
+      {
+        title: '数据结构和算法',
+        collapsable: true,
+        children: [
+          '/DataStructureAndAlgorithms/JsProgramme/',
+          '/DataStructureAndAlgorithms/WebWheel/',
+          '/DataStructureAndAlgorithms/DataStructure/',
+          '/DataStructureAndAlgorithms/Algorithms/'
+        ],
+      },
+      {
+        title: '运行环境',
+        collapsable: true,
+        children: [
+          '/OperatingEnvironment/BrowserAndApi/',
+          '/OperatingEnvironment/BrowserPrinciple/',
+          '/OperatingEnvironment/Node/'
+        ],
+      },
+      {
+        title: '框架和类库',
+        collapsable: true,
+        children: [
+          '/FrameAndClasslib/TypeScript/',
+          '/FrameAndClasslib/React/',
+          '/FrameAndClasslib/Vue/',
+          '/FrameAndClasslib/Multiport/',
+          '/FrameAndClasslib/DataFlow/',
+          '/FrameAndClasslib/PracticalLib/'
         ],
       },
       {
@@ -53,13 +102,6 @@ module.exports = {
           '/webgl/1-什么是webgl',
           '/webgl/2-初识webgl和着色器',
           '/webgl/3-坐标系与鼠标交互',
-        ],
-      },
-      {
-        title: 'DOM',
-        collapsable: false,
-        children: [
-          // '/DOM/',
         ],
       },
     ],

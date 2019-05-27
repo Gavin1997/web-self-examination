@@ -1,112 +1,109 @@
 module.exports = {
-  title: '前端自省清单',
-  description: '全面、深入解析MDN推荐使用的JavaScript API',
+  title: "前端自省清单",
+  base: process.env.base,
+  description: "全面、深入解析MDN推荐使用的JavaScript API",
   themeConfig: {
-    algolia: {
-      apiKey: '5304c2403a41a7c2d17a71016438d6fc',
-      indexName: 'docsearch'
-    },
     activeHeaderLinks: true,
-    repo: 'https://github.com/Gavin1997/vuepress_web.git',
-    repoLabel: 'GitHub',
-    docsDir: 'docs',
+    repo: "https://github.com/Gavin1997/vuepress_web.git",
+    repoLabel: "GitHub",
+    docsDir: "docs",
     editLinks: true,
-    editLinkText: '在 GitHub 上编辑此页',
-    nav: [{
-        text: 'JavaScript',
-        link: '/JavaScript/',
-      }, {
-        text: 'HTML',
-        link: '/HTML/',
+    search: true,
+    searchMaxSuggestions: 10,
+    editLinkText: "在 GitHub 上编辑此页",
+    nav: [
+      {
+        text: "JavaScript",
+        link: "/JavaScript/"
       },
       {
-        text: 'CSS',
-        link: '/CSS/',
+        text: "HTML",
+        link: "/HTML/"
+      },
+      {
+        text: "CSS",
+        link: "/CSS/"
       },
 
       {
-        text: '个人博客',
-        link: 'http://www.gavin88.top:5800',
-      },
+        text: "个人博客",
+        link: "http://www.gavin88.top:5800"
+      }
     ],
 
-    sidebar: [{
+    sidebar: [
+      {
         title: "javaScript",
         collapsable: true,
         children: [
-          '/JavaScript/VarandTypes/',
-          '/JavaScript/ProtoAndChain/',
-          '/JavaScript/ScoprAndClosure/',
-          '/JavaScript/ExecutionMechanism/',
-          '/JavaScript/GrammarAndApi/'
-        ],
+          "/JavaScript/VarandTypes/",
+          "/JavaScript/ProtoAndChain/",
+          "/JavaScript/ScoprAndClosure/",
+          "/JavaScript/ExecutionMechanism/",
+          "/JavaScript/GrammarAndApi/"
+        ]
       },
       {
-        title: 'HTML',
+        title: "HTML",
         collapsable: true,
-        children: [
-          '/HTML/',
-        ],
+        children: ["/HTML/"]
       },
       {
-        title: 'CSS',
+        title: "CSS",
         collapsable: true,
-        children: [
-          '/CSS/',
-        ],
+        children: ["/CSS/"]
       },
       {
-        title: '计算机基础',
+        title: "计算机基础",
         collapsable: true,
         children: [
-          '/CoumpterBasic/FundamentalsOfCompiling/',
-          '/CoumpterBasic/NetworkingProtocol/',
-          '/CoumpterBasic/DesignMode/'
-        ],
+          "/CoumpterBasic/FundamentalsOfCompiling/",
+          "/CoumpterBasic/NetworkingProtocol/",
+          "/CoumpterBasic/DesignMode/"
+        ]
       },
       {
-        title: '数据结构和算法',
+        title: "数据结构和算法",
         collapsable: true,
         children: [
-          '/DataStructureAndAlgorithms/JsProgramme/',
-          '/DataStructureAndAlgorithms/WebWheel/',
-          '/DataStructureAndAlgorithms/DataStructure/',
-          '/DataStructureAndAlgorithms/Algorithms/'
-        ],
+          "/DataStructureAndAlgorithms/JsProgramme/",
+          "/DataStructureAndAlgorithms/WebWheel/",
+          "/DataStructureAndAlgorithms/DataStructure/",
+          "/DataStructureAndAlgorithms/Algorithms/"
+        ]
       },
       {
-        title: '运行环境',
+        title: "运行环境",
         collapsable: true,
         children: [
-          '/OperatingEnvironment/BrowserAndApi/',
-          '/OperatingEnvironment/BrowserPrinciple/',
-          '/OperatingEnvironment/Node/'
-        ],
+          "/OperatingEnvironment/BrowserAndApi/",
+          "/OperatingEnvironment/BrowserPrinciple/",
+          "/OperatingEnvironment/Node/"
+        ]
       },
       {
-        title: '框架和类库',
+        title: "框架和类库",
         collapsable: true,
         children: [
-          '/FrameAndClasslib/TypeScript/',
-          '/FrameAndClasslib/React/',
-          '/FrameAndClasslib/Vue/',
-          '/FrameAndClasslib/Multiport/',
-          '/FrameAndClasslib/DataFlow/',
-          '/FrameAndClasslib/PracticalLib/'
-        ],
+          "/FrameAndClasslib/TypeScript/",
+          "/FrameAndClasslib/React/",
+          "/FrameAndClasslib/Vue/",
+          "/FrameAndClasslib/Multiport/",
+          "/FrameAndClasslib/DataFlow/",
+          "/FrameAndClasslib/PracticalLib/"
+        ]
       },
       {
-        title: 'webGL',
+        title: "webGL",
         collapsable: true,
         children: [
-          '/webgl/1-什么是webgl',
-          '/webgl/2-初识webgl和着色器',
-          '/webgl/3-坐标系与鼠标交互',
-        ],
-      },
+          "/webgl/1-什么是webgl",
+          "/webgl/2-初识webgl和着色器",
+          "/webgl/3-坐标系与鼠标交互"
+        ]
+      }
     ],
     displayAllHeaders: true,
-    lastUpdated: '上次更新',
-
-  },
+    lastUpdated: "上次更新"
+  }
 };

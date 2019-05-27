@@ -1,6 +1,6 @@
 module.exports = {
   title: "前端自省清单",
-  base: process.env.base,
+  // base: process.env.base,
   description: "全面、深入解析MDN推荐使用的JavaScript API",
   themeConfig: {
     activeHeaderLinks: true,
@@ -11,8 +11,7 @@ module.exports = {
     search: true,
     searchMaxSuggestions: 10,
     editLinkText: "在 GitHub 上编辑此页",
-    nav: [
-      {
+    nav: [{
         text: "JavaScript",
         link: "/JavaScript/"
       },
@@ -31,8 +30,7 @@ module.exports = {
       }
     ],
 
-    sidebar: [
-      {
+    sidebar: [{
         title: "javaScript",
         collapsable: true,
         children: [

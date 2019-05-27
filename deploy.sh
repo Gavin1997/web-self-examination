@@ -20,6 +20,6 @@ git commit -m 'deploy'
 # git push -f git@github.com:<Gavin1997>/<Gavin1997>.github.io.git master
 
 # 如果你想要部署到 https://<USERNAME>.github.io/<REPO>
-git push -f git@github.com:<Gavin1997>/<web-self-examination>.git master:gh-pages
+git push -f git@github.com:Gavin1997/web-self-examination.git master:gh-pages
 
 cd -

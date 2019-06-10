@@ -456,7 +456,7 @@ Symbol.unscopables;
 3. 再声明一个变量 b,并把变量 a 赋值给变量 b，此时会在栈内开辟一个新空间用来储存变量 b。
 4. 这时变量 a 和变量 b 对应栈内存中两个空间，修改其中一个不会影响到另一个。
 
-![avatar](/varandTypes/stack.png)
+<img :src="$withBase('/varandTypes/stack.png')" alt="foo">
 
 ### 复杂数据类型
 
@@ -466,7 +466,7 @@ Symbol.unscopables;
 4. 那么 obj1 和 obj2 通过相同的指针指向是同一个值，修改其中一个对象的值，会影响到另一个对象。
 5. 如果对 obj1 重新赋值的话，那么这个对象会堆中的另一块区域，不会在与 obj2 共享同一块区域。
 
-![avatar](/varandTypes/heap.png)
+<img :src="$withBase('/varandTypes/heap.png')" alt="foo">
 
 ```js
 /**************按值传递***********/
@@ -508,6 +508,7 @@ javaScript 高级程序设计： 在使用 var 声明变量但未对其加以初
 `null` 是定义的对象 但是没有实例 ....
 可以理解为 `null` 是 `defined` 了的 obj
 只是没有赋值或 new
+
 
 ---
 
@@ -574,7 +575,8 @@ new Person instanceof Object;// true
 我们来分析一下 [ ]、Array、Object 三者之间的关系：
 
 从 instanceof 能够判断出 [ ]. `__proto__` 指向 Array.prototype，而 Array.prototype.**`_proto_`** 又指向了 Object.prototype，最终 Object.prototype.**`__proto__`** 指向了 null，标志着原型链的结束。因此，[]、Array、Object 就在内部形成了一条原型链：
-![avatar](/varandTypes/proto_instaceof.jpg)
+
+ <img :src="$withBase('/varandTypes/proto_instaceof.jpg')" alt="foo">
 
 从原型链可以看出，[] 的 `_porto_`直接指向 `Array.prototype`，间接指向 `Object.prototype`，所以按照 `instanceof` 的判断规则，[] 就是 Object 的实例。依次类推，类似的 `new Date()`、`new Person()` 也会形成一条对应的原型链 。因此，`instanceof` **只能用来判断两个对象是否属于实例关系， 而不能判断一个对象实例具体属于哪种类型。**
 
@@ -601,18 +603,21 @@ if (Array.isArray(value)) {
 ### constructor
 
 - 当一个函数 F 被定义时，JS 引擎会为 F 添加 `prototype` 原型，然后再在 `prototype` 上添加一个 `constructor` 属性，并让其指向 F 的引用。如下所示：
-  ![avatar](/varandTypes/constructor1.png)
+  <img :src="$withBase('/varandTypes/constructor1.png')" alt="foo">
 - 当执行 var f = new F() 时，F 被当成了构造函数，f 是 F 的实例对象，此时 F 原型上的 constructor 传递到了 f 上，因此 `f.constructor == F`
-  ![avatar](/varandTypes/constructor2.png)
+  <img :src="$withBase('/varandTypes/constructor2.png')" alt="foo">
 - 可以看出，F 利用原型对象上的 c`onstructor` 引用了自身，当 F 作为构造函数来创建对象时，原型上的 `constructor` 就被遗传到了新创建的对象上， 从原型链角度讲，构造函数 F 就是新对象的类型。这样做的意义是，让新对象在诞生以后，就具有可追溯的数据类型。
   同样，JavaScript 中的内置对象在内部构建时也是这样做的：
-  ![avatar](/varandTypes/constructor3.png)
+  <img :src="$withBase('/varandTypes/constructor3.png')" alt="foo">
 - 细节问题
   :::tip
+
   1. `null` 和 `undefined` 是无效的对象，因此是不会有 `constructor` 存在的，这两种类型的数据需要通过其他方式来判断。
   2. 函数的 `constructor` 是不稳定的，这个主要体现在自定义对象上，当开发者重写 `prototype` 后，原有的 `constructor` 引用会丢失，`constructor` 会默认为 Object
      :::
-     ![avatar](/varandTypes/constructor4.png)
+
+     <img :src="$withBase('/varandTypes/constructor4.png')" alt="foo">
+
 - 为什么变成了 Object？
   因为 `prototype` 被重新赋值的是一个 { }， { } 是 `new Object()` 的字面量，因此 `new`Object() 会将 `Object` 原型上的 `constructo`r 传递给 { }，也就是 `Object` 本身。
   因此，为了规范开发，在重写对象原型时一般都需要重新给 `constructor` 赋值，以保证对象实例的类型不被篡改。
@@ -622,7 +627,7 @@ if (Array.isArray(value)) {
 ## 出现小数精度丢失的原因
 
 计算机的二进制实现和位数限制有些数无法有限表示。就像一些无理数不能有限表示，如 圆周率 3.1415926...，1.3333... 等。JS 遵循 IEEE 754 规范，采用双精度存储（double precision），占用 64 bit。如图
-![avatar](/varandTypes/jsNumber.png)
+<img :src="$withBase('/varandTypes/jsNumber.png')" alt="foo">
 
 意义
 
@@ -779,7 +784,7 @@ var num2 = num1;
 
 上述例子中，num1 保存的值是 5，当使用 num1 的值来初始化 num2 时，num2 中也保存了值 5。但 num2 中的 5 与 num1 中的 5 是完全独立的，该值只是 num1 中 5 的一个副本。此后，这两个变量可以参与任何操作而不会相互影响。
 复制基本类型的过程：
-![avatar](/varandTypes/copyNum.png)
+<img :src="$withBase('/varandTypes/copyNum.png')" alt="foo">
 
 - 复制引用类型:当从一个变量向另一个变量复制引用类型的值时，同样也会将存储在变量对象中的值复制一份放到为新变量分配的空间中。不同的是，这个值的副本实际上是一个指针，而这个指针指向存储在堆中的一个对象。复制操作结束后，两个变量实际上引用同一个对象。因此，改变其中一个变量，就会影响另外一个变量：例
 
@@ -792,7 +797,7 @@ alert(obj2.name); //"Nicholas"
 
 首先，变量 obj1 保存了一个对象的新实例。然后，这个值被复制到了 obj2 中；换句话说，obj1 和 obj2 都指向同一个对象。这样，当为 obj1 添加 name 属性后，可以通过 obj2 来访问这个属性，因为这两个变量引用的都是同一个对象。
 复制值类型的过程如下图：
-![avatar](/varandTypes/copyObject.png)
+<img :src="$withBase('/varandTypes/copyObject.png')" alt="foo">
 
 - 参数传递(按值传递)
   在向参数传递基本类型的值时，被传递的值会被复制给一个局部变量（即命名参数，或者用 ECMAScript 的概念来说，就是 arguments 对象中的一个元素）。在向参数传递引用类型的值时，会把这个值在内存中的地址复制给一个局部变量，因此这个局部变量的变化会反映在函数的外部。

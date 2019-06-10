@@ -7,5 +7,9 @@
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
     "deploy": "bash deploy.sh"
+  },
+  "dependencies": {
+    "markdown-it": "^8.4.2",
+    "vue-echarts": "^4.0.3"
   }
 }

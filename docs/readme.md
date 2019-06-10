@@ -2,7 +2,7 @@
 home: true
 lang: zh-CN
 heroText: A Personal Blog
-heroImage: /public/logo.jpg
+heroImage: /logo.jpg
 actionText: 开始 →
 actionLink: /interview/
 features:

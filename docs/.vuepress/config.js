@@ -1,6 +1,6 @@
 module.exports = {
   title: "前端自省清单",
-  // base: process.env.base,
+  base: "/gongweiBook/",
   description: "全面、深入解析MDN推荐使用的JavaScript API",
   themeConfig: {
     activeHeaderLinks: true,

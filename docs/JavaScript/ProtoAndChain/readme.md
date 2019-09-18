@@ -140,6 +140,101 @@ console.log(child51.reName === child52.reName); //true, 共享了父类的方法
 
 ---
 
+## apply/call/bind 自我实现
+
+1. call/apply/bind 的区别
+
+三者都可用于显示绑定 this;
+call/apply 的区别方式在于参数传递方式的不同；
+fn.call(obj, arg1, arg2, ...)， 传参数列表，以逗号隔开；
+fn.call(obj, [arg1, arg2, ...])， 传参数数组；
+bind 返回的是一个待执行函数，是函数柯里化的应用，而 call/apply 则是立即执行函数
+
+2. call 的实现
+
+```js
+// ES6 版本
+Function.prototype.myCall = function(context, ...params) {
+  // ES6 函数 Rest 参数，使其可指定一个对象，接收函数的剩余参数，合成数组
+  if (typeof context === "object") {
+    context = context || window;
+  } else {
+    context = Object.create(null);
+  }
+
+  // 用 Symbol 来作属性 key 值，保持唯一性，避免冲突
+  let fn = Symbol();
+  context[fn] = this;
+  // 将参数数组展开，作为多个参数传入
+  const result = context[fn](...params);
+  // 删除避免永久存在
+  delete context[fn];
+  // 函数可以有返回值
+  return result;
+};
+
+// 测试
+var mine = {
+  name: "以乐之名"
+};
+
+var person = {
+  name: "无名氏",
+  sayHi: function(msg) {
+    console.log("我的名字：" + this.name + "，", msg);
+  }
+};
+
+person.sayHi.myCall(mine, "很高兴认识你！");
+// 我的名字：以乐之名，很高兴认识你！
+```
+
+3. apply 实现
+
+```js
+Function.prototype.myApply = function(context, params) {
+    // apply 与 call 的区别，第二个参数是数组，且不会有第三个参数
+    if (typeof context === 'object') {
+        context = context || window;
+    } else {
+        context = Object.create(null);
+    }
+
+    let fn = Symbol();
+    context[fn] = this;
+    const result context[fn](...params);
+    delete context[fn];
+    return result;
+}
+```
+
+4. bind 的源码实现
+   bind 与 call/apply 的区别就是返回的是一个待执行的函数，而不是函数的执行结果;
+   bind 返回的函数作为构造函数与 new 一起使用，绑定的 this 需要被忽略;
+   调用绑定函数时作为 this 参数传递给目标函数的值。如果使用 new 运算符构造绑定函数，则忽略该值。—— MDN
+
+```js
+Function.prototype.bind = function(context, ...initArgs) {
+  // bind 调用的方法一定要是一个函数
+  if (typeof this !== "function") {
+    throw new TypeError("not a function");
+  }
+  let self = this;
+  let F = function() {};
+  F.prototype = this.prototype;
+  let bound = function(...finnalyArgs) {
+    // 将前后参数合并传入
+    return self.call(
+      this instanceof F ? this : context || this,
+      ...initArgs,
+      ...finnalyArgs
+    );
+  };
+  bound.prototype = new F();
+  return bound;
+};
+```
+
 ## 至少说出一种开源项目(如 Node)中应用原型继承的案例
 
 ---

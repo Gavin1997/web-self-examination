@@ -1,6 +1,6 @@
 # 终止一个错误
 set -e
-cd /Users/gavin/Desktop/ANYTHING/web-self-examination
+cd /Users/gavin/Desktop/Desktop/ANYTHING/web-self-examination
 
 git add .
 

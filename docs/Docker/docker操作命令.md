@@ -36,7 +36,9 @@ docker rmi （-f） name[name...] --- 移除镜像(-f:强制移除运行中容�
 
 一键删除所有 tag 为 none 的镜像
 
-`docker rmi docker images | grep "<none>" | awk '{print $3}'`
+`docker images|grep none|awk '{print $3}'|xargs docker rmi`
+
+先删除容器再删除镜像`
 
 [更详细的操作命令](https://www.runoob.com/docker/docker-command-manual.html)
 

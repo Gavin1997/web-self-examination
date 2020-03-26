@@ -30,7 +30,11 @@ docker pause name 　--- 暂停
 
 docker unpause name --- 继续
 
-docker rm name[name...] --- 移除容器
+docker rm name[name...] --- 移除容器(需要停止)
+
+docker ps -a // 查看所有容器 \$ docker ps -a -q `查看所有容器ID`
+docker stop \$(docker ps -a -q) `stop 停止所有容器`
+docker rm \$(docker ps -a -q) `remove 删除所有容器`
 
 docker rmi （-f） name[name...] --- 移除镜像(-f:强制移除运行中容器)
 
@@ -65,3 +69,13 @@ docker rmi （-f） name[name...] --- 移除镜像(-f:强制移除运行中容�
 
 7. 查看当前运行的容器 （`docker ps` ）
 8. 测试成功后上传镜像， （`docker push 镜像名：tag`）
+
+
+### 在服务器上更新docker镜像
+1. `docker images` 查看本地docker镜像
+2. 找个路径cd Downloads/  -> `docker save -o nr.tar(名字.tar包) 10.1.32.209:9081/dist/nr-web-app:v1024(镜像:tag)`
+3. `scp nr.tar root@10.1.32.194:/root`
+4. `登录 ssh root@10.1.32.194`
+5. 上传 `docker load -i nr.tar(名字.tar包)`
+6. 查看docker服务 `docker service ls`
+7. 更新某个服务下的镜像  `docker service update front_nr-frontend --image 10.1.32.209:9081/dist/nr-web-app:v1024`

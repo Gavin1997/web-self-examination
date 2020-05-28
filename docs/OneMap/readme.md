@@ -101,25 +101,25 @@
 ## 一张图入口 OneMap.vue
 
 1. 渲染组件
-   | component | 组件功能 | 备注 |
+   | component            | 组件功能                 |   备注   |
    | -------------------- | ------------------------ | :------: |
-   | NrTopicTree | 资源目录树组件 |
-   | NrProductTree | 专题分析产品树组件 |
-   | NrMapFavorites | 收藏夹 |
-   | nr-topMenu | 顶部菜单栏 |
-   | NrTopicFileView | 资源目录专题关联专题查看 |
-   | NrTopicTree_Ministry | 资源树 | 部里特有 |
-   | NrTopicProductTree | 数据专题 | 部里特有 |
+   | NrTopicTree          | 资源目录树组件           |
+   | NrProductTree        | 专题分析产品树组件       |
+   | NrMapFavorites       | 收藏夹                   |
+   | nr-topMenu           | 顶部菜单栏               |
+   | NrTopicFileView      | 资源目录专题关联专题查看 |
+   | NrTopicTree_Ministry | 资源树                   | 部里特有 |
+   | NrTopicProductTree   | 数据专题                 | 部里特有 |
    - 渲染 distMap 组件
-     | component | 组件功能 | 备注 |
+     | component        | 组件功能                     |                                    备注                                    |
      | ---------------- | ---------------------------- | :------------------------------------------------------------------------: |
-     | eyemap-map | eyemap 地图组件 | 地图准备好以后,mapExent 以及 mapObj 存入 store`map mapDiv, mapView mapRef` |
-     | nr-mapCoordinate | 比例尺组件 |
-     | nr-mapToggle | 底图切换组件 |
+     | eyemap-map       | eyemap 地图组件              | 地图准备好以后,mapExent 以及 mapObj 存入 store`map mapDiv, mapView mapRef` |
+     | nr-mapCoordinate | 比例尺组件                   |
+     | nr-mapToggle     | 底图切换组件                 |
      | nr-topicResource | 专题资源管理组件(运维中配置) |
-     | nr-mapToolBar | 地图工具栏 |
-     | nr-regionList | 区域选择组件 |
-     | nr-timeSelector | 时间线组件 |
+     | nr-mapToolBar    | 地图工具栏                   |
+     | nr-regionList    | 区域选择组件                 |
+     | nr-timeSelector  | 时间线组件                   |
 
 ## 资源目录的加载与操作
 
@@ -286,10 +286,10 @@ Panel 管理器,用于管理弹窗组件的相关事件和操作,同时挂载在
 ##### 项目周边设施统计 SurroundProjects.vue
 
 和项目周边用地一样,配置文件也一致 **SurroundProjects.json**
-| 统计方式 | 区别 |
+| 统计方式         |         区别          |
 | ---------------- | :-------------------: |
 | 项目周边用地统计 | 图层类型为 polygon 面 |
-| 项目周边设施统计 | 图层类型为 point |
+| 项目周边设施统计 |   图层类型为 point    |
 
 ##### 设施总量与分布统计 facilityDistribute.vue
 

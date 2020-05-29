@@ -1,6 +1,15 @@
+/*
+ * @Author: your name
+ * @Date: 2020-05-29 13:38:06
+ * @LastEditTime: 2020-05-29 13:41:19
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /web-self-examination/docs/.vuepress/config.js
+ */
+
 module.exports = {
   title: "前端自省清单",
-  base: "/gongweiBook/",
+  base: "/web-self-examination/",
   description: "全面、深入解析MDN推荐使用的JavaScript API",
   themeConfig: {
     activeHeaderLinks: true,
@@ -11,26 +20,28 @@ module.exports = {
     search: true,
     searchMaxSuggestions: 10,
     editLinkText: "在 GitHub 上编辑此页",
-    nav: [{
+    nav: [
+      {
         text: "JavaScript",
-        link: "/JavaScript/"
+        link: "/JavaScript/",
       },
       {
         text: "HTML",
-        link: "/HTML/"
+        link: "/HTML/",
       },
       {
         text: "CSS",
-        link: "/CSS/"
+        link: "/CSS/",
       },
 
       {
         text: "个人博客",
-        link: "http://www.gavin88.top:5800"
-      }
+        link: "http://www.gavin88.top:5800",
+      },
     ],
 
-    sidebar: [{
+    sidebar: [
+      {
         title: "javaScript",
         collapsable: true,
         children: [
@@ -38,18 +49,18 @@ module.exports = {
           "/JavaScript/ProtoAndChain/",
           "/JavaScript/ScoprAndClosure/",
           "/JavaScript/ExecutionMechanism/",
-          "/JavaScript/GrammarAndApi/"
-        ]
+          "/JavaScript/GrammarAndApi/",
+        ],
       },
       {
         title: "HTML",
         collapsable: true,
-        children: ["/HTML/"]
+        children: ["/HTML/"],
       },
       {
         title: "CSS",
         collapsable: true,
-        children: ["/CSS/"]
+        children: ["/CSS/"],
       },
       {
         title: "计算机基础",
@@ -57,8 +68,8 @@ module.exports = {
         children: [
           "/CoumpterBasic/FundamentalsOfCompiling/",
           "/CoumpterBasic/NetworkingProtocol/",
-          "/CoumpterBasic/DesignMode/"
-        ]
+          "/CoumpterBasic/DesignMode/",
+        ],
       },
       {
         title: "数据结构和算法",
@@ -67,8 +78,8 @@ module.exports = {
           "/DataStructureAndAlgorithms/JsProgramme/",
           "/DataStructureAndAlgorithms/WebWheel/",
           "/DataStructureAndAlgorithms/DataStructure/",
-          "/DataStructureAndAlgorithms/Algorithms/"
-        ]
+          "/DataStructureAndAlgorithms/Algorithms/",
+        ],
       },
       {
         title: "运行环境",
@@ -76,8 +87,8 @@ module.exports = {
         children: [
           "/OperatingEnvironment/BrowserAndApi/",
           "/OperatingEnvironment/BrowserPrinciple/",
-          "/OperatingEnvironment/Node/"
-        ]
+          "/OperatingEnvironment/Node/",
+        ],
       },
       {
         title: "框架和类库",
@@ -88,8 +99,8 @@ module.exports = {
           "/FrameAndClasslib/Vue/",
           "/FrameAndClasslib/Multiport/",
           "/FrameAndClasslib/DataFlow/",
-          "/FrameAndClasslib/PracticalLib/"
-        ]
+          "/FrameAndClasslib/PracticalLib/",
+        ],
       },
       {
         title: "webGL",
@@ -97,11 +108,16 @@ module.exports = {
         children: [
           "/webgl/1-什么是webgl",
           "/webgl/2-初识webgl和着色器",
-          "/webgl/3-坐标系与鼠标交互"
-        ]
-      }
+          "/webgl/3-坐标系与鼠标交互",
+        ],
+      },
+      {
+        title: "面试宝典",
+        collapsable: true,
+        children: ["/interForOther/"],
+      },
     ],
     displayAllHeaders: true,
-    lastUpdated: "上次更新"
-  }
-};
+    lastUpdated: "上次更新",
+  },
+}

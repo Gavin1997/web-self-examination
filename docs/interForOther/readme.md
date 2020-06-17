@@ -151,6 +151,12 @@ window对象新增了一个window.postMessage方法，允许跨窗口通信，�
 什么是原型链：只要是对象就有原型, 并且原型也是对象, 因此只要定义了一个对象, 那么就可以找到他的原型, 如此反复, 就可以构成一个对象的序列, 这个结构就被称为原型链
 所有的实例有一个内部指针(prototype)，指向它的原型对象，并且可以访问原型对象上的所有属性和方法。
 
+### 说说构造函数中原型方法, 静态方法, 实列方法的区别
+
+简而言之，实例方法就是只有实例可以调用，静态方法只有构造函数可以调用，原型方法是实例和构造函数都可以调用，是共享的方法。
+
+像 Promise.all 和 Promise.race 这些就是静态方法，Promise.prototype.then 这些就是原型方法，new 出来的实例可以调用
+
 ### 谈谈toString和String的区别？
 
 toString()方法；数值、字符串、对象、布尔；都有toString方法；这个方法唯一能做的就是返回相应的字符串；其中null和undefined没有toString()方法；
@@ -195,6 +201,52 @@ getters => 从基本数据派生的数据
 mutations => 提交更改数据的方法，同步！
  actions => 像一个装饰器，包裹mutations，使之可以异步。
  modules => 模块化Vuex
+
+### React 中 keys 的作用是什么？
+
+Keys 是 React 用于追踪哪些列表中元素被修改、被添加或者被移除的辅助标识。
+
+在开发过程中，我们需要保证某个元素的 key 在其同级元素中具有唯一性。在 React Diff 算法中 React 会借助元素的 Key 值来判断该元素是新近创建的还是被移动而来的元素，从而减少不必要的元素重渲染。此外，React 还需要借助 Key 值来判断元素与本地状态的关联关系，因此我们绝不可忽视转换函数中 Key 的重要性
+
+### react 生命周期函数
+
+* 初始化阶段：
+
+    - getDefaultProps: 获取实例的默认属性
+    - getInitialState: 获取每个实例的初始化状态
+    - componentWillMount：组件即将被装载、渲染到页面上
+    - render: 组件在这里生成虚拟的 DOM 节点
+    - componentDidMount: 组件真正在被装载之后
+
+* 运行中状态：
+
+    - componentWillReceiveProps: 组件将要接收到属性的时候调用
+    - shouldComponentUpdate: 组件接受到新属性或者新状态的时候（可以返回 false，接收数据后不更新，阻止 render 调用，后面的函数不会被继续执行了）
+    -  componentWillUpdate: 组件即将更新不能修改属性和状态
+    - render: 组件重新描绘
+    - componentDidUpdate: 组件已经更新
+
+* 销毁阶段：
+
+    componentWillUnmount: 组件即将销毁
+
+### shouldComponentUpdate 是做什么的，（react 性能优化是哪个周期函数？）
+
+shouldComponentUpdate 这个方法用来判断是否需要调用 render 方法重新描绘 dom。因为 dom 的描绘非常消耗性能，如果我们能在 shouldComponentUpdate 方法中能够写出更优化的 dom diff 算法，可以极大的提高性能。
+
+### 为什么虚拟 dom 会提高性能?
+
+虚拟 dom 相当于在 js 和真实 dom 中间加了一个缓存，利用 dom diff 算法避免了没有必要的 dom 操作，从而提高性能。
+
+用 JavaScript 对象结构表示 DOM 树的结构；然后用这个树构建一个真正的 DOM 树，插到文档当中当状态变更的时候，重新构造一棵新的对象树。然后用新的树和旧的树进行比较，记录两棵树差异把 2 所记录的差异应用到步骤 1 所构建的真正的 DOM 树上，视图就更新了。
+
+### react diff 原理
+
+* 把树形结构按照层级分解，只比较同级元素。
+* 给列表结构的每个单元添加唯一的 key 属性，方便比较。
+* React 只会匹配相同 class 的 component（这里面的 class 指的是组件的名字）
+* 合并操作，调用 component 的 setState 方法的时候, React 将其标记为 dirty. 到每一个事件循环结束, React 检查所有标记 dirty 的 component 重新绘制.
+* 选择性子树渲染。开发人员可以重写 shouldComponentUpdate 提高 diff 的性能。
 
 ## 工作流
 
@@ -272,3 +324,57 @@ Access-Control-Request-Headers: X-PINGOTHER, Content-Type
 #### 总结
 
 options 请求就是预检请求，可用于检测服务器允许的 http 方法。当发起跨域请求时，由于安全原因，触发一定条件时浏览器会在正式请求之前自动先发起 OPTIONS 请求，即 CORS 预检请求，服务器若接受该跨域请求，浏览器才继续发起正式请求。
+
+### get和POST的区别
+
+get用来获取数据，post用来提交数据
+get参数有长度限制（受限于url长度，具体的数值取决于浏览器和服务器的限制，最长2048字节），而post无限制。
+get请求的数据会附加在url之 ，以 " ？ "分割url和传输数据，多个参数用 "&"连接，而post请求会把请求的数据放在http请求体中。
+get是明文传输，post是放在请求体中，但是开发者可以通过抓包工具看到，也相当于是明文的。
+get请求会保存在浏览器历史记录中，还可能保存在web服务器的日志中
+首先get和post在本质上都是tcp链接，但由于http协议和浏览器或者服务器的限制，从而使它们在应用过程中产生了差别，但是它们中还有一个较大的区别：get在请求时发送一个数据包，会将header和data一起发送过去，而post会产生两个数据包先发送header，服务器返回100，然后在发送data，服务器返回200
+
+## 工具的使用
+
+#### webpack
+
+##### 有哪些常见的Loader？你用过哪些Loader？
+
+    raw-loader：加载文件原始内容（utf-8）
+    file-loader：把文件输出到一个文件夹中，在代码中通过相对 URL 去引用输出的文件 (处理图片和字体)
+    url-loader：与 file-loader 类似，区别是用户可以设置一个阈值，大于阈值会交给 file-loader 处理，小于阈值时返回文件 base64 形式编码 (处理图片和字体)
+    source-map-loader：加载额外的 Source Map 文件，以方便断点调试
+    svg-inline-loader：将压缩后的 SVG 内容注入代码中
+    image-loader：加载并且压缩图片文件
+    json-loader 加载 JSON 文件（默认包含）
+    handlebars-loader: 将 Handlebars 模版编译成函数并返回
+    babel-loader：把 ES6 转换成 ES5
+    ts-loader: 将 TypeScript 转换成 JavaScript
+    awesome-typescript-loader：将 TypeScript 转换成 JavaScript，性能优于 ts-loader
+    sass-loader：将SCSS/SASS代码转换成CSS
+    css-loader：加载 CSS，支持模块化、压缩、文件导入等特性
+    style-loader：把 CSS 代码注入到 JavaScript 中，通过 DOM 操作去加载 CSS
+    postcss-loader：扩展 CSS 语法，使用下一代 CSS，可以配合 autoprefixer 插件自动补齐 CSS3 前缀
+    eslint-loader：通过 ESLint 检查 JavaScript 代码
+    tslint-loader：通过 TSLint检查 TypeScript 代码
+    mocha-loader：加载 Mocha 测试用例的代码
+    coverjs-loader：计算测试的覆盖率
+    vue-loader：加载 Vue.js 单文件组件
+    i18n-loader: 国际化
+    cache-loader: 可以在一些性能开销较大的 Loader 之前添加，目的是将结果缓存到磁盘里
+
+##### 有哪些常见的Plugin？你用过哪些
+
+    Plugindefine-plugin：定义环境变量 (Webpack4 之后指定 mode 会自动配置)
+    ignore-plugin：忽略部分文件
+    html-webpack-plugin：简化 HTML 文件创建 (依赖于 html-loader)
+    web-webpack-plugin：可方便地为单页应用输出 HTML，比 html-webpack-plugin 好用
+    uglifyjs-webpack-plugin：不支持 ES6 压缩 (Webpack4 以前)
+    terser-webpack-plugin: 支持压缩 ES6 (Webpack4)
+    webpack-parallel-uglify-plugin: 多进程执行代码压缩，提升构建速度
+    mini-css-extract-plugin: 分离样式文件，CSS 提取为独立文件，支持按需加载 (替代extract-text-webpack-plugin)
+    serviceworker-webpack-plugin：为网页应用增加离线缓存功能
+    clean-webpack-plugin: 目录清理
+    ModuleConcatenationPlugin: 开启 Scope Hoisting
+    speed-measure-webpack-plugin: 可以看到每个 Loader 和 Plugin 执行耗时 (整个打包耗时、每个 Plugin 和 Loader 耗时)
+    webpack-bundle-analyz

@@ -1,12 +1,3 @@
-/*
- * @Author: your name
- * @Date: 2020-05-29 13:38:06
- * @LastEditTime: 2020-05-29 13:41:19
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: /web-self-examination/docs/.vuepress/config.js
- */
-
 module.exports = {
   title: "前端自省清单",
   base: "/web-self-examination/",
@@ -50,6 +41,7 @@ module.exports = {
           "/JavaScript/ScoprAndClosure/",
           "/JavaScript/ExecutionMechanism/",
           "/JavaScript/GrammarAndApi/",
+          "/JavaScript/Promise/",
         ],
       },
       {
@@ -109,6 +101,19 @@ module.exports = {
           "/webgl/1-什么是webgl",
           "/webgl/2-初识webgl和着色器",
           "/webgl/3-坐标系与鼠标交互",
+        ],
+      },
+      {
+        title: "openLayer",
+        collapsable: true,
+        children: [
+          "/Openlayers/地图Map",
+          "/Openlayers/图层Layers",
+          "/Openlayers/视图View",
+          "/Openlayers/叠加层Overlay",
+          "/Openlayers/交互动作Interaction",
+          "/Openlayers/控件Control",
+          "/Openlayers/投影Projections",
         ],
       },
       {

@@ -13,6 +13,11 @@
 7. 新的技术：web worker(web worker是运行在后台的 JavaScript，独立于其他脚本，不会影响页面的性能。您可以继续做任何愿意做的事情：点击、选取内容等等，而此时 web worker 在后台运行) web socket
 8. 拖放API：drag、drop
 
+### 什么叫优雅降级和渐进增强？
+
+1. 优雅降级：Web站点在所有新式浏览器中都能正常工作，如果用户使用的是老式浏览器，则代码会检查以确认它们是否能正常工作。由于IE独特的盒模型布局问题，针对不同版本的IE的hack实践过优雅降级了, 为那些无法支持功能的浏览器增加候选方案，使之在旧式浏览器上以某种形式降级体验却不至于完全失效.
+2. 渐进增强：从被所有浏览器支持的基本功能开始，逐步地添加那些只有新式浏览器才支持的功能, 向页面增加无害于基础浏览器的额外样式和功能的。当浏览器支持时，它们会自动地呈现出来并发挥作用。
+
 ## CSS
 
 ### 什么是 flex 布局和 grid 布局？分别在什么时候使用
@@ -27,8 +32,26 @@ Flex 布局是 1D。这意味着使用 flex 布局可以操作行或列，但只
 
 管理大型项目中的 CSS 可能具有挑战性。一种方法是使用预处理器，例如 SASS 或 LESS。两者都是出色的预处理程序，可以很好地管理 CSS 文件。它们具有函数、变量、嵌套 CSS 等功能。这是避免样式表冲突以及管理大型 CSS 文件的有效方法。
 
-### rem 和 em 有什么区别
+### 1rem、1em、1vh、1px各自代表的含义？
 
+ - rem
+
+rem是全部的长度都相对于根元素 `<html>` 元素。通常做法是给html元素设置一个字体大小，然后其他元素的长度单位就为rem。
+
+* em
+
+子元素字体大小的em是相对于父元素字体大小
+元素的width/height/padding/margin用em的话是相对于该元素的font-size
+vw/vh
+全称是 Viewport Width 和 Viewport Height，视窗的宽度和高度，相当于 屏幕宽度和高度的 1%，不过，处理宽度的时候%单位更合适，处理高度的 话 vh 单位更好。
+
+* px
+
+px像素（Pixel）。相对长度单位。像素px是相对于显示器屏幕分辨率而言的。
+
+一般电脑的分辨率有{1920*1024}等不同的分辨率
+
+1920*1024 前者是屏幕宽度总共有1920个像素, 后者则是高度为1024个像素
 rem 和 em 都是 CSS 单位。rem 表示 root-em。em 和 rem 之间的区别是，rem 从根元素获取值，而 em 从父元素获取值。这是导致两者完全不同的原因。
 
 ### position fixed 和 sticky 之间的区别
@@ -114,6 +137,10 @@ outline（轮廓）绘制在元素框之上，其不占据空间（不影响元�
 1. 减少内存消耗，提高性能不需要为每一个子元素绑定事件
 2. 动态绑定事件
 
+### 如何中断ajax请求？
+
+一种是设置超时时间让ajax自动断开，另一种是手动停止ajax请求，其核心是调用XML对象的abort方法， `ajax.abort()`
+
 ### 跨域是什么原因引起？怎么解决？
 
 跨域是指一个域下的文档或脚本试图去请求另一个域下的资源，这里跨域是广义的。
@@ -169,6 +196,34 @@ String()属于强制转换， null转换的结果为null；undefined转换的结
 MVC：MVC模式可以这样理解，将html看成view; js看成controller，处理用户与应用的交互，响应对view的操作（对事件的监听），调用Model对数据进行操作，完成model与view的同步（根据model的改变，通过选择器对view进行操作）; 将js的ajax当做Model，从服务器获取数据，MVC是单向的。
 MVVM：它实现了View和Model的自动同步，也就是当Model的属性改变时，我们不用再自己手动操作Dom元素，来改变View的显示，而是改变属性后该属性对应View层显示会自动改变，MVVM是双向的。
 
+### vue-router的路由模式?
+
+#### hash、history
+
+1. 早期的前端路由的实现就是基于 location.hash 来实现的。其实现原理也很简单，location.hash 的值就是 URL 中 # 后面的内容。比如下面这个网站，它的 `location.hash` 的值为 ` '#search'`
+此外，hash 也存在下面几个特性：
+URL 中 hash 值只是客户端的一种状态，也就是说当向服务器端发出请求时，hash 部分不会被发送。
+hash 值的改变，都会在浏览器的访问历史中增加一个记录。因此我们能通过浏览器的回退、前进按钮控制hash 的切换。
+我们可以使用 hashchange 事件来监听 hash 的变化。
+我们可以通过两种方式触发 hash 变化，一种是通过 a 标签，并设置 href 属性，当用户点击这个标签后，URL 就会发生改变，也就会触发 hashchange 事件了：
+ `<a href="#search">search</a>`
+复制代码还有一种方式就是直接使用 JavaScript来对 `loaction.hash` 进行赋值，从而改变 URL，触发 `hashchange` 事件：
+ `location.hash="#search"`
+ 
+
+2. 前面的 hash 虽然也很不错，但使用时都需要加上 #，并不是很美观。因此到了 HTML5，又提供了 History API 来实现 URL 的变化。其中做最主要的 API 有以下两个：history.pushState() 和 history.repalceState()。这两个 API可以在不进行刷新的情况下，操作浏览器的历史纪录。唯一不同的是，前者是新增一个历史记录，后者是直接替换当前的历史记录，如下所示：
+
+``` js
+window.history.pushState(null, null, path);
+window.history.replaceState(null, null, path);
+```
+
+复制代码此外，history 存在下面几个特性：
+
+`pushState` 和 `repalceState` 的标题（title）：一般浏览器会忽略，最好传入 null ；
+我们可以使用 popstate  事件来监听 url 的变化；
+`history.pushState() ` 或 `history.replaceState()` 不会触发 popstate 事件，这时我们需要手动触发页面渲染；
+
 ### $route和$router的区别
 
 $router是VueRouter的一个对象，通过Vue.use(VueRouter)和VueRouter构造函数得到一个router的实例对象，这个对象中是一个全局的对象，他包含了所有的路由包含了许多关键的对象和属性。
@@ -182,6 +237,14 @@ $route对象表示当前的路由信息，包含了当前 URL 解析得到的信
 --这里如果text发生改变，整个 `<span>` 元素会发生更新，因为当text改变时，这个元素的key属性就发生了改变，在渲染更新时，Vue会认为这里新产生了一个元素，而老的元素由于key不存在了，所以会被删除，从而触发了过渡。
 同理，key属性被用在组件上时，当key改变时会引起新组件的创建和原有组
 
+### v-if和v-for谁的优先级高？如何同时使用？
+
+首先：永远不要把 v-if 和 v-for 同时用在同一个元素上。
+
+其次：当 Vue 处理指令时，v-for 比 v-if 具有更高的优先级
+
+将 users替换为一个计算属性 ` (比如 activeUsers)` ，让其返回过滤后的列表
+
 ### vue中常用的修饰符
 
 .stop              //组织单击事件冒泡
@@ -190,9 +253,11 @@ $route对象表示当前的路由信息，包含了当前 URL 解析得到的信
 .self              //只当事件在该元素本身时触发回调（在其子元素上不触发）
 .once             //只触发一次事件
 
-### 对keep-aerlive的了解
+### 对keep-alive的了解
 
  通过设置了keep-alive，可以简单理解为从页面1跳转到页面2后，然后后退到页面1，只会加载缓存中之前已经渲染好的页面1，而不会再次重新加载页面1，及不会再触发页面一种的created等类似的钩子函数，除非自己重新刷新该页面1。
+`activated` ： 页面第一次进入的时候，钩子触发的顺序是created->mounted->activated
+`deactivated` :  页面退出的时候会触发deactivated，当再次前进或者后退的时候只触发activated
 
 ### vuex中的成员？对应的作用
 
@@ -289,8 +354,7 @@ HTTP 的 OPTIONS 方法 用于获取目的资源所支持的通信选项。客�
 * 人为设置了以下集合之外首部字段，即简单请求外的字段
 * Content-Type 的值不属于下列之一，即application/x-www-form-urlencoded、multipart/form-data、text/plain
 
-`options 关键的请求字段` 
-
+ `options 关键的请求字段`
 **request header 的关键字段**
 | 关键字段        | 作用           |
 | ------------- |:-------------:|

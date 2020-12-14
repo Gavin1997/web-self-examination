@@ -690,3 +690,18 @@ Layer
   -- -- -- -- -- | –GPResultImageLayer | –GraphicsLayer |
   -- -- | –FeatureLayer | –ElementLayer
 ```
+
+### 常用的地理和投影坐标系的WKID
+
+WKID是Well-known ID的缩写, 表示空间参考的ID, 
+| 类别 | wkid |名称|
+| --- | ---| ---|
+| 地理坐标 | 4490 |GCS_China_Geodetic_Coordinate_System_2000 
+| 投影坐标 | 4496 |CGCS2000_GK_Zone_18 
+| --- | ---| ---|
+| --- | ---| ---|
+| --- | ---| ---|
+| --- | ---| ---|
+| --- | ---| ---|
+| --- | ---| ---|
+| --- | ---| ---|

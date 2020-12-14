@@ -62,6 +62,7 @@ module.exports = {
           "/CoumpterBasic/NetworkingProtocol/",
           "/CoumpterBasic/DesignMode/",
         ],
+
       },
       {
         title: "数据结构和算法",
@@ -104,6 +105,13 @@ module.exports = {
         ],
       },
       {
+        title: "一张图",
+        collapsable: true,
+        children: [
+          "/OneMap/",
+          "OneMap/OpenlayerEyeMap/"],
+      },
+      {
         title: "openLayer",
         collapsable: true,
         children: [
@@ -116,11 +124,11 @@ module.exports = {
           "/Openlayers/投影Projections",
         ],
       },
-      {
-        title: "面试宝典",
-        collapsable: true,
-        children: ["/interForOther/"],
-      },
+      // {
+      //   title: "面试宝典",
+      //   collapsable: true,
+      //   children: ["/interForOther/"],
+      // },
     ],
     displayAllHeaders: true,
     lastUpdated: "上次更新",

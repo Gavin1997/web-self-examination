@@ -626,12 +626,198 @@ queryBreakLimit(url, layerID, sql = "1=1", geometry = null, objectIds = null)
 
 ## 渲染矢量图层
 
+ * 区域面颜色渲染-带文字图例
+
+``` js
+    layerInfo 渲染图层信息
+    isShowLegend 是否渲染图例
+    isShowTip 是否显示提示信息(tootip)
+    isLocate 是否定位
+    rendererRegionPolygon(layerInfo, isShowLegend = true, isShowTip = false, isLocate = true)
+```
+
+*   监测预警, 渲染区域点（带有数字的发散圆点, 面加载渲染，点查询渲染，鼠标移入移出点击事件
+
+``` js
+ layerInfo 渲染图层信息
+ isShowLabel 是否显示气泡数字
+ isShowRegion 是否显示区域
+ isShowLegend 是否显示图例
+ isLocate 是否定位
+ rendererRegionPointByFlashMarker(layerInfo, isShowLabel, isShowRegion, isShowLegend, isLocate)
+```
+
+* 清除渲染的Theme层
+
+``` js
+removeRenderLayers()
+```
+
+*清除渲染的Vector层数据 
+
+``` js
+locate 是否定位初始状态
+clearFeatures(locate)
+```
+
+* 清除地图上的鼠标事件
+
+``` js
+ clearMapOperate()
+```
+
+* 删除指定GraphicsLayer图层之外的所有GraphicsLayer
+
+``` js
+graphicLayerID - 要删除的graphicLayerId
+removeExceptGraphicsLayer(graphicLayerID = "")
+```
+
+* 清除指定GraphicsLayer图层之外的所有GraphicsLayer要素
+
+``` js
+graphicLayerID - 要清除要素的layerId
+cleanExceptGraphicsLayer(graphicLayerID = "")
+```
+
+* 根据设置的symbol对象转为ol的style
+
+``` js
+symbol - 为之前各业务系统自己写的一些样式, 个通过此方法转换为ol格式的style
+getFeatureRenderStyle(symbol)
+```
+
+* 根据图形json数组生成graphic数组，渲染定位
+
+``` js
+polygonJsons - geoJson 数组集合
+isLocate - 是否定位
+icClearLayer - 是否清除layer
+tipis - 鼠标显示的tipis信息
+createGeoJSONLayer(
+  polygonJsons,
+  isLocate = true,
+  isClearLayer,
+  layerId
+)
+```
+
+* 清除geojsonLayer
+
+``` js
+isLocate - 是否定位
+clearGeojsonLayer(isLocate)
+```
+
+* 辅助编制, 根据多个区域渲染地图
+
+``` js
+layerInfo: {
+  codeField,
+  renderUrl,
+  renderLayerID,
+  platform,
+  regions
+}
+rendererMultiRegions(layerInfo, isLocate, isRender)
+```
+
+* 渲染临时graphic数据
+
+``` js
+tempGraphics - graphic数组集合
+renderTempGraphics(tempGraphics)
+```
+
+ * 清除临时graphic数据
+ 
+
+``` js
+ clearTempGraphics()
+```
+
 ## 分析方法
 
 * buffer封装
+
+``` js
+ url 查询服务url地址
+ flag 服务类型 - arcgis, supermap, other
+ geometries - 地图服务分析的几何图形数组， supermap只能单个进行缓冲， 需要循环
+ distances - 缓冲分析得距离
+ unionResults - 判断分析结果是否合并, 用于esri服务
+ return olGeo promise
+ buffer({
+   url,
+   flag,
+   geometries,
+   distances,
+   unionResults
+ })
+```
+
 * intersect封装
-* difference封装
-* union封装
+
+``` js
+   intersect封装, 支持supermap和arcgis 相交查询
+   url 查询服务url地址
+   flag 服务类型 - arcgis / supermap / other
+   sourceGeometries - 被做intersect的图形集合
+   operateGeometries - 做intersect的图形集合（ arcgis只能单个）
+   return olGeo Promise
+   intersect({
+     url,
+     flag,
+     sourceGeometries,
+     operateGeometries
+   })
+```
+
+* difference封装 一个几何图形减去它与另一个几何图形相交的部分
+
+``` js
+difference({
+  url,
+  flag,
+  sourceGeometries,
+  operateGeometries
+})
+```
+
+* union封装 , 使用turf.js 合并两个同维度的几何对象为单个几何对象
+
+``` js
+ union({
+   url,
+   flag,
+   geometries
+ })
+```
+
 * 计算图形的面积和长度, 先封装arcgis, 
 
+``` js
+geometries 传入的格式为ol格式的geometry数据
+param 传入的查询参数 {
+  {
+    areaUnit: "esriSquareMeters"
+  },
+  calculateAreaAndLength(geometries, param)
+```
+
 ## 画图工具
+
+ *   激活eyemap绘制功能
+
+``` js
+drawType 绘制类型point, polyline, freeline, polygon, freepolygon, rectangle, circle, locate, text
+isContinueDraw 绘制完成后是否可以继续绘制
+isClear 渲染数据前是否清除已有的数据
+isAutoRender 是否自动绘制到默认图层, 默认为true, 如果为false, 请监听map实例的draw - geometry事件
+openDrawMap(
+  drawType,
+  isContinueDraw = true,
+  isClear = false,
+  isAutoRender = true
+)
+```

@@ -66,7 +66,6 @@ docker rmi （-f） name[name...] --- 移除镜像(-f:强制移除运行中容�
 -d, --detach=false， 指定容器运行于前台还是后台，默认为 false
 --name=""， 指定容器名字，后续可以通过名字进行容器管理，links 特性需要使用名字
 :::
-
 7. 查看当前运行的容器 （`docker ps` ）
 8. 测试成功后上传镜像， （`docker push 镜像名：tag`）
 

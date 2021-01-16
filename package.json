@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "markdown-it": "^8.4.2",
-    "vue-echarts": "^4.0.3"
+    "vue-echarts": "^4.0.3",
+    "vuepress": "^1.8.0"
   }
 }

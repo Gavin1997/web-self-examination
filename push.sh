@@ -3,12 +3,12 @@
  # @Date: 2019-09-18 14:30:59
  # @LastEditors: GongWei
  # @Description: 
- # @LastEditTime: 2020-11-03 09:06:27
+ # @LastEditTime: 2021-01-16 17:21:55
  # @FilePath: /web-self-examination/push.sh
 ### 
 # 终止一个错误
 set -e
-cd /Users/gavin/Desktop/Desktop/个人存放的盒子/web-self-examination
+cd /Users/gongwai/Desktop/Desktop/Desktop/个人存放的盒子/web-self-examination
 
 git add .
 

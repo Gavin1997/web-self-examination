@@ -75,6 +75,7 @@ docker rmi （-f） name[name...] --- 移除镜像(-f:强制移除运行中容�
 1. `docker images` 查看本地docker镜像
 2. 找个路径cd Downloads/  -> `docker save -o nr.tar(名字.tar包) 10.1.32.209:9081/dist/nr-web-app:v1024(镜像:tag)`
 3. `scp nr.tar root@10.1.32.194:/root`
+   或者 `scp -r -P 15874 nginx.conf root@52.82.117.147:/root/docker-images`
 4. `登录 ssh root@10.1.32.194`
 5. 上传 `docker load -i nr.tar(名字.tar包)`
 6. 查看docker服务 `docker service ls`

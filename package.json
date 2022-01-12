@@ -10,7 +10,7 @@
     "push": "bash push.sh"
   },
   "dependencies": {
-    "markdown-it": "^8.4.2",
+    "markdown-it": "^12.3.2",
     "vue-echarts": "^4.0.3",
     "vuepress": "^1.8.0"
   }
